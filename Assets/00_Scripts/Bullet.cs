@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     public float speed = 10.0f;
     public float lifetime = 5.0f;
     public GameObject ExplosionParticle;
+    public GameObject DamageObject;
     private Vector3 direction;
 
     public void Initalize(Vector3 dir)
@@ -23,6 +24,11 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
             Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
+            var damageFont = Instantiate(DamageObject);
+            damageFont.GetComponent<DamageTMP>().Initalize(
+                BaseCanvas.instance.transform,
+                transform.position,
+                "99");
             Destroy(this.gameObject);
         }
     }

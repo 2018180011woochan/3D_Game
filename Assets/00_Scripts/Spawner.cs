@@ -23,8 +23,14 @@ public class Spawner : MonoBehaviour
     void SpawnMonsterAtEdge()
     {
         Vector3 spawnPos = GetRandomPointOnCircleEdge(player.position, spawnRadius);
-        GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
-        monster.GetComponent<MonsterMovement>().Initalize(player);
+        //GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
+
+        var Monster = MANAGER.POOL.PoolingObj("Monster").Get((value) =>
+        {
+            value.transform.position = spawnPos;
+            value.GetComponent<MonsterMovement>().Initalize(player);
+        });
+        //monster.GetComponent<MonsterMovement>().Initalize(player);
     }
 
     Vector3 GetRandomPointOnCircleEdge(Vector3 center, float radius)

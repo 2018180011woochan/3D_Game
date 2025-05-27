@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Bullet : MonoBehaviour
     public void Initalize(Vector3 dir)
     {
         direction = dir;
-        Destroy(this.gameObject, lifetime);
+        StartCoroutine(DestroyCoroutine(lifetime));
     }
 
     private void Update()
@@ -19,17 +20,27 @@ public class Bullet : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
+    IEnumerator DestroyCoroutine(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+    }   
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
             Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
-            var damageFont = Instantiate(DamageObject);
-            damageFont.GetComponent<DamageTMP>().Initalize(
-                BaseCanvas.instance.transform,
-                transform.position,
-                "99");
-            Destroy(this.gameObject);
+
+            var damageFont = MANAGER.POOL.PoolingObj("DamageTMP").Get((value) =>
+            {
+                value.GetComponent<DamageTMP>().Initalize(
+                    BaseCanvas.instance.transform,
+                    transform.position,
+                    "99");
+            });
+
+            StopAllCoroutines();
+            MANAGER.POOL.m_Pool_Dictionary["Bullet"].Return(this.gameObject);
         }
     }
 }

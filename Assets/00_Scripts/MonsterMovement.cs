@@ -5,7 +5,7 @@ public class MonsterMovement : MONSTER
     public float speed = 3.0f;
     private Rigidbody rb;
     private Animator animator;
-    bool isSpanwed = false;
+    
 
     public void Start()
     {
@@ -23,7 +23,7 @@ public class MonsterMovement : MONSTER
         base.Initalize(player);
         Rotate(direction(), false);
 
-        StartCoroutine(SpawnStartCoroutine(transform.localScale));
+        StartCoroutine(SpawnStartCoroutine(new Vector3(15, 15, 15)));
     }
 
     IEnumerator SpawnStartCoroutine(Vector3 scaleEnd)
@@ -48,6 +48,7 @@ public class MonsterMovement : MONSTER
 
     public void FixedUpdate()
     {
+        if (isDead) return;
         if (!isSpanwed) return;
         
         MoveAndRotate();

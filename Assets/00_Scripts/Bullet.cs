@@ -31,13 +31,7 @@ public class Bullet : MonoBehaviour
         {
             Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
 
-            var damageFont = MANAGER.POOL.PoolingObj("DamageTMP").Get((value) =>
-            {
-                value.GetComponent<DamageTMP>().Initalize(
-                    BaseCanvas.instance.transform,
-                    transform.position,
-                    "99");
-            });
+            other.gameObject.GetComponent<MONSTER>().GetDamage(MANAGER.SESSION.Damage);
 
             StopAllCoroutines();
             MANAGER.POOL.m_Pool_Dictionary["Bullet"].Return(this.gameObject);

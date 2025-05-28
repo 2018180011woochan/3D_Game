@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8e61b0b131c6141b1074322f769a49, type: 3}
   m_Name: Monster
   m_EditorClassIdentifier: 
-  parts: []
+  parts:
+  - id: Skeleton_01
+    prefab: {fileID: 181000441861454073, guid: 8f5356a75c631a845a896ca2e886c65a, type: 3}
+  - id: Skeleton_02
+    prefab: {fileID: 2346377487485108258, guid: 15538c7cdcc19504ab4917db159c075b, type: 3}

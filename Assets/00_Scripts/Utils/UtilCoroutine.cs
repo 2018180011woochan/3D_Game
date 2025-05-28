@@ -1,0 +1,33 @@
+using System;
+using System.Collections;
+using UnityEngine;
+
+public class UtilCoroutine
+{
+    public static IEnumerator Delay(float delay, Action action)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
+
+    public static IEnumerator ParabolaMove(Transform obj, Vector3 start, Vector3 end, float height, float duration)
+    {
+        float time = 0.0f;
+        while (time < duration)
+        {
+            float t = time / duration;
+
+            Vector3 flatPos = Vector3.Lerp(start, end, t);
+
+            // À§·Î ¼Ú´Â °ª
+            float y = Mathf.Sin(Mathf.PI * t) * height;
+
+            obj.position = new Vector3(flatPos.x, flatPos.y + y, flatPos.z);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.position = end;
+    }
+}

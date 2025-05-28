@@ -1,14 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-public interface IPool
-{
-    Transform parentTransform { get; set; }
-    Queue<GameObject> pool { get; set; }
-    GameObject Get(Action<GameObject> action = null);
 
-    void Return(GameObject obj, Action<GameObject> action = null);
-}
 
 public class ObjectPool : IPool
 {

@@ -51,6 +51,6 @@ public class DamageTMP : MonoBehaviour
             yield return null;
         }
 
-        Destroy(this.gameObject);
+        MANAGER.POOL.m_Pool_Dictionary["DamageTMP"].Return(this.gameObject);
     }
 }

@@ -4,6 +4,7 @@ public class MANAGER : MonoBehaviour
 {
     public static MANAGER instance = null;
     public static PoolManager POOL;
+    public static DBManager DB;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class MANAGER : MonoBehaviour
             Destroy(gameObject);
         }
         POOL = GetComponentInChildren<PoolManager>();
+        DB = GetComponentInChildren<DBManager>();
     }
 
     

@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
-public class MonsterMovement : MonoBehaviour
+public class MonsterMovement : MONSTER
 {
-    public Transform target;
     public float speed = 3.0f;
     private Rigidbody rb;
     private Animator animator;
@@ -11,7 +10,7 @@ public class MonsterMovement : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void SetTarget(Transform player)
@@ -19,10 +18,9 @@ public class MonsterMovement : MonoBehaviour
         target = player;
     }
 
-    public void Initalize(Transform player)
+    public override void Initalize(Transform player)
     {
-        target = player;
-
+        base.Initalize(player);
         Rotate(direction(), false);
 
         StartCoroutine(SpawnStartCoroutine(transform.localScale));

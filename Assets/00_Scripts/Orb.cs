@@ -15,17 +15,17 @@ public class Orb : MonoBehaviour
     {
         expValue = amount;
         DropExp(endPosition);
-        if (amount == 3f)
+        if (amount == 50f)
         {
             transform.localScale = Vector3.one * 0.5f;
             renderer.material.color = colors[0];
         }
-        else if (amount == 1.0f)
+        else if (amount == 30f)
         {
             transform.localScale = Vector3.one * 0.4f;
             renderer.material.color = colors[1];
         }
-        else if (amount == 0.25f)
+        else if (amount == 10f)
         {
             transform.localScale = Vector3.one * 0.3f;
             renderer.material.color = colors[2];

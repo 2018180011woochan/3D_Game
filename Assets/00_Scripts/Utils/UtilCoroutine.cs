@@ -10,7 +10,7 @@ public class UtilCoroutine
         action?.Invoke();
     }
 
-    public static IEnumerator ParabolaMove(Transform obj, Vector3 start, Vector3 end, float height, float duration)
+    public static IEnumerator ParabolaMove(Transform obj, Vector3 start, Vector3 end, float height, float duration, Action action = null)
     {
         float time = 0.0f;
         while (time < duration)
@@ -27,6 +27,11 @@ public class UtilCoroutine
             time += Time.deltaTime;
             yield return null;
         }
+        if (action != null)
+        {
+            action?.Invoke();
+        }
+
 
         obj.position = end;
     }

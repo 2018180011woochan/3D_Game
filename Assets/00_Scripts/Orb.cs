@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Orb : MonoBehaviour
@@ -5,7 +6,7 @@ public class Orb : MonoBehaviour
     public float expValue;
     public Color[] colors;
     Renderer renderer;
-
+    public bool isIdle = false;
     private void Awake()
     {
         renderer = GetComponent<Renderer>();
@@ -46,7 +47,48 @@ public class Orb : MonoBehaviour
             transform.position,
             end,
             height,
-            duration
+            duration,
+            () => isIdle = true
             ));
+    }
+
+    public void StartFollow(Transform target)
+    {
+        if (!isIdle) return;
+        StartCoroutine(MoveToPlayer(target));
+    }
+
+    IEnumerator MoveToPlayer(Transform player)
+    {
+        isIdle = false;
+
+        Vector3 ejectDir = (transform.position - player.position).normalized;
+        float ejectTime = 0.15f;
+        float ejectSpeed = 4.0f;
+        float timer = 0.0f;
+
+        while (timer < ejectTime)
+        {
+            transform.position += ejectDir * ejectSpeed * Time.deltaTime;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        float absorbSpeed = 10.0f;
+
+        while (true)
+        {
+            Vector3 endPos = player.position + new Vector3(0, 0.5f, 0);
+            transform.position = Vector3.MoveTowards(transform.position, endPos, absorbSpeed * Time.deltaTime);
+            float dist = Vector3.Distance(transform.position, endPos);
+            if (dist < 0.2f) break;
+            yield return null; 
+        }
+        Absorb();
+    }
+
+    void Absorb()
+    {
+        MANAGER.POOL.m_Pool_Dictionary["Orb"].Return(this.gameObject);
+        MANAGER.SESSION.AddEXP(expValue);
     }
 }

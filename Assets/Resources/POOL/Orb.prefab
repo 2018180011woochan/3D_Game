@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6042873044226044091}
   - component: {fileID: 4813159539187514786}
   - component: {fileID: -5764664121004815959}
-  m_Layer: 0
+  - component: {fileID: -1643731750832224648}
+  m_Layer: 7
   m_Name: Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,3 +106,24 @@ MonoBehaviour:
   - {r: 0.2889284, g: 0.28702387, b: 0.8113208, a: 0}
   - {r: 0.035243843, g: 0.8301887, b: 0.061166, a: 0}
   - {r: 0.526036, g: 0.115877524, b: 0.7924528, a: 0}
+--- !u!135 &-1643731750832224648
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005749043258033087}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0, z: 0}

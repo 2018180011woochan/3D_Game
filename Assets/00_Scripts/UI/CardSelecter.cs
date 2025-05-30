@@ -1,16 +1,47 @@
+using System.Collections;
 using UnityEngine;
 
 public class CardSelecter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Card[] cards;
+    Animator animator;
+
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initilaze()
     {
-        
+        animator.Play("Selecter_Open");
+
+        for (int i = 0; i < cards.Length; ++i)
+        {
+            cards[i].Initalize();
+        }
+    }
+
+    public void SelectCard(int value)
+    {
+        for (int i = 0; i < cards.Length; ++i)
+        {
+            if (i == value)
+            {
+                cards[i].SetAnimations("Card_Select");
+            }
+            else
+            {
+                cards[i].SetAnimations("Card_NonSelect");
+            }
+            cards[i].isSelected = true;
+        }
+        StartCoroutine(GameStartCoroutine());
+    }
+
+    IEnumerator GameStartCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        animator.Play("Selecter_Close");
+        Time.timeScale = 1.0f;
     }
 }

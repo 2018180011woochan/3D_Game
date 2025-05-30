@@ -10,7 +10,7 @@ public class MONSTER : MonoBehaviour
     public string monsterId;
     private IFactory<MONSTER> factory;
 
-    protected bool isSpanwed = false;
+    public bool isSpanwed = false;
     public bool isDead = false;
 
     public virtual void Initalize(Transform player)
@@ -37,7 +37,7 @@ public class MONSTER : MonoBehaviour
         var damageFont = MANAGER.POOL.PoolingObj("DamageTMP").Get((value) =>
         {
             value.GetComponent<DamageTMP>().Initalize(
-                BaseCanvas.instance.transform,
+                BaseCanvas.instance.HOLDERLAYER,
                 transform.position,
                 dmg.ToString());
         });

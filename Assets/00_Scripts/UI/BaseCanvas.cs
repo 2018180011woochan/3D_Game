@@ -27,8 +27,10 @@ public class BaseCanvas : MonoBehaviour
         MANAGER.SESSION.onMonsterCountChanged -= M_CountText;
     }
 
+    public Transform HOLDERLAYER;
+
     public Image EXPFill;
-    public GameObject CardObject;
+    public CardSelecter CardObject;
     public TextMeshProUGUI LevelText;
     public TextMeshProUGUI monsterCountText;
     public TextMeshProUGUI TimerText;
@@ -40,7 +42,7 @@ public class BaseCanvas : MonoBehaviour
 
     public void SelectCard()
     {
-        CardObject.SetActive(true);
+        CardObject.Initilaze();
     }
 
     private void M_CountText(int value) => monsterCountText.text = value.ToString();

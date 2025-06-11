@@ -15,9 +15,11 @@ public class CardSelecter : MonoBehaviour
     {
         animator.Play("Selecter_Open");
 
+        var Cards = MANAGER.DB.GetRandomCardSet();
+
         for (int i = 0; i < cards.Length; ++i)
         {
-            cards[i].Initalize();
+            cards[i].Initalize(Cards[i]);
         }
     }
 
@@ -28,6 +30,7 @@ public class CardSelecter : MonoBehaviour
             if (i == value)
             {
                 cards[i].SetAnimations("Card_Select");
+                MANAGER.SESSION.SelectedCard(cards[i].card);
             }
             else
             {

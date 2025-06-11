@@ -1,11 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void OnExpChanaged(float exp);
 public delegate void OnMonsterCountChanged(int value);
+public delegate void OnSelectedCard();
 public class SessionManager : MonoBehaviour
 {
     public OnExpChanaged onExpChanaged;
     public OnMonsterCountChanged onMonsterCountChanged;
+    public OnSelectedCard onSelectedCard;
+
+    public Dictionary<string, SelectCard> SelectedCards = new Dictionary<string, SelectCard>();
+
     public int CurrentWave;
     public int Level;
     public int Damage;
@@ -20,6 +26,24 @@ public class SessionManager : MonoBehaviour
     private void Update()
     {
         GameTime += Time.unscaledDeltaTime;
+    }
+
+    public void SelectedCard(CardDB db)
+    {
+        if (SelectedCards.ContainsKey(db.id))
+        {
+            var data = SelectedCards[db.id];
+            data.Level++;
+        }
+        else
+        {
+            var selected = new SelectCard();
+            selected.db = db;
+            selected.Level = 1;
+            SelectedCards.Add(db.id, selected);
+        }
+        Debug.Log(db.id + "카드가 선택. 레벨 = " + SelectedCards[db.id].Level);
+        onSelectedCard?.Invoke();
     }
 
     public void AddMonster()

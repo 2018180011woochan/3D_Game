@@ -10,7 +10,7 @@ public class PartData
     public GameObject prefab;
 }
 
-[CreateAssetMenu(fileName = "Scriptable", menuName = "DB", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "Scriptable", menuName = "DB/Part", order = int.MaxValue)]
 public class PartDB : ScriptableObject
 {
     public List<PartData> parts;
